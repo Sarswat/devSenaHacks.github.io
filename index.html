@@ -171,7 +171,7 @@ input[type=submit]:active {
             <input type="text" id="load" name="load">
             <div id="lower">
                 <input type="checkbox"><label class="check" for="checkbox">Enable path Splitting</label>
-                <input type="submit" value="Login">
+                <input type="button" value="Login"  onclick="drawConnection(0);">
             </div><!--/ lower-->
         </form>
     </div>
@@ -266,7 +266,7 @@ input[type=submit]:active {
 		for ( indexs = 0; indexs < destinations.length; indexs++) {
 		  drawPoint(indexs);
 		}
-		drawConnection(0);
+		//drawConnection(0);
         }
 
 
@@ -556,7 +556,7 @@ input[type=submit]:active {
           });
         this.svg = svg;
         this.projection = projection;
-       this.drawConnections();
+       //this.drawConnections();
       };
 
 
