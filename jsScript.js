@@ -1,8 +1,10 @@
-
-	<script type="text/javascript">
+<script src="d3.min.js"></script>
+    <script src="topojson.v1.js"></script>
+	<script type='text/javascript' src='script.js'></script>
+    <script>
       var originGeo = [16.8286, 52.4200];
       var originName = 'POZ';
-
+	  
       var destinations = [
           {'coord': [20.9679, 52.1672], 'name': 'WAW', 'capacity': '650MW'},
           {'coord': [23.9569, 49.8134], 'name': 'LWO', 'capacity': '850MW'},
@@ -24,13 +26,13 @@
           {'coord': [-3.3615, 55.9508], 'name': 'EDI', 'capacity': '963MW'},
           {'coord': [-1.010464, 53.480662], 'name': 'DSA', 'capacity': '333MW'},
           {'coord': [-6.2499, 53.4264], 'name': 'DUB', 'capacity': '920MW'},
-          {'coord': [-0.560056, 38.285483], 'name': 'ALC', 'capacity': '900MW'},
+          {'coord': [-0.560056, 38.285483], 'name': 'ALC', 'capacity': '900MW'}, 
           {'coord': [0.065603, 40.207479], 'name': 'CDT', 'capacity': '800MW'},
           {'coord': [-3.56795, 40.4839361], 'name': 'MAD', 'capacity': '953MW'},
           {'coord': [2.071062, 41.288288], 'name': 'BCN', 'capacity': '323MW'},
           {'coord': [2.766066, 41.898201], 'name': 'GRO', 'capacity': '111MW'},
-          {'coord': [14.483279, 35.854114], 'name': 'MLA', 'capacity': '951MW'},
-          {'coord': [23.9484, 37.9356467], 'name': 'ATH', 'capacity': '858MW'},
+          {'coord': [14.483279, 35.854114], 'name': 'MLA', 'capacity': '951MW'},     
+          {'coord': [23.9484, 37.9356467], 'name': 'ATH', 'capacity': '858MW'},   
           {'coord': [19.914486, 39.607645], 'name': 'CFU', 'capacity': '8526MW'},
           {'coord': [34.9362, 29.9511], 'name': 'VDA', 'capacity': '226MW'},
           {'coord': [34.8854, 32.0055], 'name': 'TLV', 'capacity': '500MW'}
@@ -41,8 +43,8 @@
       var speed = 2800;//km/sec
 
 
-      var tooltip = d3.select('#map').append('div')
-          .attr('class', 'tooltipDestination')
+      var tooltip = d3.select('#map').append('div')	
+          .attr('class', 'tooltipDestination')				
           .style('opacity', 0);
       function getArc(d, s) {
         var dx = d.destination.x - d.origin.x;
@@ -62,17 +64,17 @@
       function calculateDuration(distance) {
         return (distance / this.speed) * 1000;
       }
-
-
+	
+	
 		function drawAllDestination(indexs){
 		var nextIndex = indexs + 1;
-		for ( indexs = 0; indexs < destinations.length; indexs++) {
+		for ( indexs = 0; indexs < destinations.length; indexs++) { 
 		  drawPoint(indexs);
 		}
 		drawConnection(0);
-        }
-
-
+        }              
+			
+		
       function drawConnection(index) {
 	  debugger;
 	  //alert("connection");
@@ -109,7 +111,7 @@
                   s = true;
               }
               return getArc(d, s);
-          })
+          }) 
           .style('stroke', 'green')
           .style('stroke-width', 1)
           .style('fill', 'none')
@@ -121,7 +123,7 @@
                     .transition()
                     .duration(700)
                     .style('opacity', 1)
-                })
+                }) 
           .transition()
           .duration(duration)
           .attrTween('stroke-dasharray', function() {
@@ -130,7 +132,7 @@
                 return (d3.interpolate('0,' + len, len + ',0'))(t)
               };
           })
-
+		 
           .on('end', function(d) {
               var c = connection[1];
               svg.append('circle')
@@ -148,7 +150,7 @@
                     .transition()
                     .duration(700)
                     .style('opacity', 1)
-                })
+                }) 
                 .transition()
                 .duration(300)
                 .attr('r', '3px')
@@ -168,7 +170,7 @@
                     .transition()
                     .duration(700)
                     .style('opacity', 1)
-                })
+                }) 
                 .on('mouseout', function (d) {
                   tooltip.transition()
                   .duration(700)
@@ -193,7 +195,7 @@
                     .transition()
                     .duration(700)
                     .style('opacity', 1)
-                })
+                }) 
                 .on('mouseout', function (d) {
                   tooltip.transition()
                   .duration(700)
@@ -218,7 +220,7 @@
                         svg.selectAll('.destCircleInner').remove();
                         svg.selectAll('.destCircleOuter').remove();
                         svg.selectAll('.destCircleMouse').remove();
-                        for (i = 0; i < destinations.length; i++) {
+                        for (i = 0; i < destinations.length; i++) { 
                           svg.selectAll('.arc' + i).remove();
                         }
                       }
@@ -257,7 +259,7 @@
                 .style('fill-opacity', '1')
                 .transition()
                 .duration(300)
-                .attr('r', '3px');
+                .attr('r', '3px'); 
               svg.append('circle')
                 .attr('cx', c[0])
                 .attr('cy', c[1])
@@ -284,7 +286,7 @@
                     .transition()
                     .duration(700)
                     .style('opacity', 1)
-                })
+                }) 
                 .on('mouseout', function (d) {
                   tooltip.transition()
                   .duration(700)
@@ -294,14 +296,14 @@
                 .duration(300)
                 .attr('r', '3px')
                 ;
-
+          
       }
-
-
+	  
+	  
       function drawConnections() {
         drawAllDestination(0);
       }
-
+      
       function drawMap(originName, originGeo, destinations) {
 	  alert("call Map");
         var countries, height, path, projection, scale, svg, width;
@@ -322,7 +324,7 @@
           .enter()
           .append('path')
           .attr('class', 'country')
-          .attr('d', path)
+          .attr('d', path)  
           return;
         });
         var source = svg.selectAll('circleOrigin');
@@ -362,7 +364,7 @@
         this.projection = projection;
         this.drawConnections();
       };
-
+	  
       this.drawMap(this.originName, this.originGeo, this.destinations);
 	  //drawAllDestination(0);
     </script>
